@@ -7,6 +7,9 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx"]
     },
+    devServer: {
+        contentBase: __dirname + "/docs"
+    },
     module: {
         rules: [
             {

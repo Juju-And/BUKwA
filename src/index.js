@@ -5,4 +5,6 @@ import App from "./components/app/App";
 ReactDOM.render(
     <App/>,
     document.getElementById("app")
-)
+);
+
+module.hot && module.hot.accept();
