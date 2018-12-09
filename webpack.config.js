@@ -22,7 +22,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.s?css$/,
                 use: [
                     {loader: "style-loader"}, // creates style nodes from JS strings
                     {
@@ -36,7 +36,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|jpeg|gif)$/i,
+                test: /\.(png|jpg|jpeg|gif|woff|woff2)$/i,
                 use: [
                     {
                         loader: "url-loader"
