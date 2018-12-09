@@ -15,8 +15,8 @@ export default class App extends React.Component {
         return <HashRouter>
             <div>
                 <Route exact path='/' component={WelcomePage} />
-                <Route path='/letterinfo' component={LetterInfo} />
-                <Route path='/sketchPad' component={SketchPad} />
+                <Route path='/letterinfo/:letter' component={LetterInfo} />
+                <Route path='/sketchPad/:letter' component={SketchPad} />
                 <Route path='/summary' component={Summary} />
             </div>
         </HashRouter>;

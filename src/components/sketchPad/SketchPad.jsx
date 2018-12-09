@@ -1,32 +1,12 @@
 import React from "react";
-// import styles from "./App.scss";
-import imageSrc from "../../assets/JJ_01.png";
-import imageSrcOK from "../../assets/JJ-02ok-02.png";
 import "./font/stylesheet.css";
 import styles from "./SketchPad.scss";
 import {Link} from "react-router-dom";
 
 import SketchPadVendor from "../../../node_modules/react-sketchpad/lib/SketchPad.js";
 
-const rotate90deg = array2d => {
-    const ret = [];
-    const h = array2d.length;
-    const w = array2d[0].length;
-    for (var i = 0; i < w; i++) {
-        ret[i] = [];
-        for (var j = 0; j < h; j++) {
-            ret[i][j] = array2d[j][i];
-        }
-    }
-    return ret;
-};
-
-// window.colors = {};
-
 const canvasToPixels = canvas => {
     const pixels = [];
-
-    console.log("canvasToPixels", canvas.width, canvas.height);
 
     for (var x = 0; x < canvas.width; x++) {
         pixels[x] = [];
@@ -37,41 +17,34 @@ const canvasToPixels = canvas => {
             const colorSum = r + g + b;
             const isWhite = colorSum > 240 * 3 || a < 30;
 
-            // window.colors[[r,g,b,a].join(" ")] = true;
-
             pixels[x][y] = isWhite ? 0 : 1;
         }
     }
     return pixels;
 };
 
-class Legend extends React.Component {
-    render() {
-        return <div className={styles.wrapperDescriptionSketch}>
-            <p>Do dyspozycji masz mazak. Wypełnij literę wewnątrz konturów, a następnie sprawdź swój rezultat
-                klikając
-                w przycisk.</p>
-            <ButtonSketch/>
-        </div>
-
-    }
+const Legend = ({ score, updateScore, letter }) => {
+    return <div className={styles.wrapperDescriptionSketch}>
+        <p>Do dyspozycji masz mazak. Wypełnij literę wewnątrz konturów, a następnie sprawdź swój rezultat
+            klikając
+            w przycisk.</p>
+        <ButtonSketch onClick={ updateScore }/>
+        <div>Wynik { score }</div>
+        {
+            score > 60 && <Link className={styles.buttonToLetterInfo} to={"/letterInfo/" + letter }>Pokaż info o literze.</Link>
+        }
+    </div>
 }
 
-class ButtonSketch extends React.Component {
-    render() {
-        return <div>
-            <button
-                onClick={() => this.showPixels()}
-                className={styles.wrapperDescriptionSketch}>
-                Pokaż mój rezultat
-            </button>
-            {this.renderPixels()}
-            <Link className={styles.buttonToLetterInfo} to={"/letterInfo"}>Pokaż info o literze.</Link>
-        </div>
-
-    }
+const ButtonSketch = ({ onClick }) => {
+    return <button
+            onClick={ onClick }
+            className={styles.wrapperDescriptionSketch}>
+            Pokaż mój rezultat
+        </button>
 }
-export default class Test extends React.Component {
+
+export default class SketchPad extends React.Component {
     constructor(...args) {
         super(...args);
         this.state = {
@@ -83,29 +56,18 @@ export default class Test extends React.Component {
     }
 
     componentDidMount() {
-        this.getOKPixels();
+        this.updateScore();
     }
 
-
-    // componentDidMount() {
-    //     this.interval = setInterval(() => this.showPixels(), 500);
-    // }
-    //
-    // componentWillUnmount() {
-    //     clearInterval(this.interval);
-    // }
-
-    showPixels() {
-        this.setState({pixels: canvasToPixels(this.canvas.ctx.canvas)});
-        this.getOKPixels();
-        this.updatePercentage();
+    updateScore = () => {
+        this.setState({
+            pixels: canvasToPixels(this.canvas.canvas)
+        }, () => this.updatePercentage());
     }
 
     updatePercentage() {
         this.setState(prevState => {
             const {pixels, borderPixels, okPixels} = prevState;
-
-            console.log({pixels, borderPixels, okPixels})
 
             const w = pixels.length;
             const h = pixels[0].length;
@@ -119,12 +81,6 @@ export default class Test extends React.Component {
                     const okPixel = okPixels[x] ? okPixels[x][y] : 0;
                     const borderPixel = borderPixels[x][y];
 
-                    // console.log({
-                    //     userPixel,
-                    //     okPixel,
-                    //     borderPixel
-                    // });
-
                     if (borderPixel) {
                         numberOfPixels--;
                     } else if (okPixel === 0 && userPixel === 0) {
@@ -135,20 +91,11 @@ export default class Test extends React.Component {
                 }
             }
 
-            console.log({
-                numberOfPixels,
-                sum
-            });
-
             return {
                 percentage: sum / numberOfPixels * 100
             }
 
         });
-    }
-
-    pixelsToString(pixels) {
-        return rotate90deg(pixels).map(row => row.join("")).join("\n");
     }
 
     drawLetterFillOnCanvas(canvas, letter) {
@@ -163,59 +110,16 @@ export default class Test extends React.Component {
         ctx.strokeText(letter, canvas.width / 4, canvas.height / 2);
     }
 
-
     getOKPixels() {
-        var canvas = document.createElement("canvas");
+        const canvas = document.createElement("canvas");
 
         canvas.width = this.canvas.canvas.width;
         canvas.height = this.canvas.canvas.height;
 
-        this.drawLetterFillOnCanvas(canvas, "ж");
+        this.drawLetterFillOnCanvas(canvas, this.getLetter());
 
-        this.setState({
-            okPixels: canvasToPixels(canvas)
-        })
+        return canvasToPixels(canvas);
     }
-
-    renderPixels() {
-        return (
-            <div>
-                {this.state.percentage} %
-                {/*<pre style={{fontSize: "4px"}}>*/}
-                {/*{*/}
-                {/*this.pixelsToString(this.state.borderPixels)*/}
-                {/*}*/}
-                {/*</pre>*/}
-
-                {/*<pre style={{fontSize: "4px"}}>*/}
-                {/*{*/}
-                {/*this.pixelsToString(this.state.pixels)*/}
-                {/*}*/}
-                {/*</pre>*/}
-
-                {/*<pre style={{fontSize: "4px"}}>*/}
-                {/*{*/}
-                {/*this.pixelsToString(this.state.okPixels)*/}
-                {/*}*/}
-                {/*</pre>*/}
-            </div>
-        );
-    }
-
-    // drawImageOnCanvas(canvas, imageSrc, onDone) {
-    //     const context = canvas.getContext('2d');
-    //
-    //     const image = new Image();
-    //     image.onload = () => {
-    //         canvas.width = image.width;
-    //         canvas.height = image.height;
-    //
-    //         context.drawImage(image, 0, 0);
-    //
-    //         onDone && onDone();
-    //     };
-    //     image.src = imageSrc;
-    // }
 
     onCanvasCreated = canvas => {
         if (!canvas) {
@@ -223,22 +127,27 @@ export default class Test extends React.Component {
         }
         this.canvas = canvas;
 
-        this.drawLetterOutlineOnCanvas(canvas.canvas, "ж");
+        this.drawLetterOutlineOnCanvas(canvas.canvas, this.getLetter());
 
         this.setState({
-            borderPixels: canvasToPixels(this.canvas.canvas)
+            borderPixels: canvasToPixels(this.canvas.canvas),
+            okPixels: this.getOKPixels()
         });
-
-
-        // this.drawImageOnCanvas(this.canvas.canvas, imageSrc, () => this.setState({
-        //     borderPixels: canvasToPixels(this.canvas.canvas)
-        // }))
     };
 
+    getLetter() {
+
+
+        return this.props.match.params.letter;
+    }
 
     render() {
         return <div className={styles.sketchContainer}>
-            <Legend/>
+            <Legend
+                score={ this.state.percentage }
+                updateScore={ this.updateScore }
+                letter={ this.getLetter() }
+            />
             <div className={styles.wrapperSketchPad}>
                 <SketchPadVendor
                     ref={this.onCanvasCreated}
