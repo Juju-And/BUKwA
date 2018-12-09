@@ -10,6 +10,7 @@ module.exports = {
     devServer: {
         contentBase: __dirname + "/docs"
     },
+    devtool: "eval-source-map",
     module: {
         rules: [
             {
