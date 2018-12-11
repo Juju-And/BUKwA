@@ -11,41 +11,53 @@ console.log(letters);
 class Letter extends React.Component {
 
     render() {
-
-        let listOfData = letters.map(
-
-            function findLettersFeatures() {
+        let description = letters.map((Object) => {
                 // sprawdź, czy litera jest taka sama jak wylosowana
-               if( {findLettersFeatures.alfabethLetter} === {this.props.letter}){
-                   //jeżeli jest, wyciągnij z obiektu jej opis
-                    return <div>{findLettersFeatures.description}</div>
+                if (Object.letterName === this.props.letter) {
+                    //jeżeli jest, wyciągnij z obiektu jej opis
+                    return <div>{Object.description}</div>
+                }
+            }
+        )
+        let pronunciation = letters.map((Object) => {
+                // sprawdź, czy litera jest taka sama jak wylosowana
+                if (Object.letterName === this.props.letter) {
+                    //jeżeli jest, wyciągnij z obiektu jej opis
+                    return <div>{Object.pronunciation}</div>
+                }
+            }
+        )
+        let translation = letters.map((Object) => {
+                // sprawdź, czy litera jest taka sama jak wylosowana
+                if (Object.letterName === this.props.letter) {
+                    //jeżeli jest, wyciągnij z obiektu jej opis
+                    return <div>{Object.translation}</div>
+                }
+            }
+        )
+        let picture = letters.map((Object) => {
+                // sprawdź, czy litera jest taka sama jak wylosowana
+                if (Object.letterName === this.props.letter) {
+                    //jeżeli jest, wyciągnij z obiektu jej opis
+                    return <div><img src={Object.picture}/></div>
                 }
             }
 
             // myLetter => <div>{myLetter.alfabethLetter} {myLetter.description}</div>
-        );
-        console.log(listOfData);
+        )
+        // console.log(listOfData);
         return <div>
             <p>Litera {this.props.letter}</p>
-            <img src={giraffe}/>
-            <div>Słowo: {this.listOfData}</div>
+            <div>{picture}</div>
+            <div>Słowo: {description}</div>
+            <div>Tłumaczenie: {translation}</div>
+            <div>Wymowa: {pronunciation}</div>
+
 
         </div>
     }
 }
 
-function ChatMessage(props){
-    return <li>{props.textWIADOMOSCI}</li>
-}
-
-function ChatMessages(props){
-    const doWYSWIETLENIA = props.messages.map( message => <ChatMessage key={message.text} textWIADOMOSCI={message.text}/>)
-    return   <div>
-        <ul>
-            {doWYSWIETLENIA}
-        </ul>
-    </div>
-}
 
 export default class LetterInfo extends React.Component {
     render() {

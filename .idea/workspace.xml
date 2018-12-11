@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b78e31d4-0475-432d-abc7-8dbcee1252f3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/letterInfo/lettersDescription.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/getRandomLetter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/getRandomLetter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/letterInfo/LetterInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/letterInfo/LetterInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/letterInfo/lettersDescription.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/letterInfo/lettersDescription.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/letterInfo/lettersDescription.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -74,8 +72,8 @@
       <file leaf-file-name="LetterInfo.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/letterInfo/LetterInfo.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+            <state relative-caret-position="462">
+              <caret line="48" column="20" lean-forward="true" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
               <folding>
                 <element signature="e#71#118#0" expanded="true" />
               </folding>
@@ -86,8 +84,8 @@
       <file leaf-file-name="lettersDescription.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/letterInfo/lettersDescription.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+            <state relative-caret-position="286">
+              <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -187,9 +185,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2227" />
-    <option name="width" value="1813" />
-    <option name="height" value="789" />
+    <option name="x" value="1920" />
+    <option name="y" value="-2" />
+    <option name="width" value="1440" />
+    <option name="height" value="902" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -225,7 +224,7 @@
               <item name="projekt" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="letterInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="welcomePage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -285,12 +284,13 @@
       <workItem from="1544284907099" duration="2648000" />
       <workItem from="1544290114644" duration="29339000" />
       <workItem from="1544381558351" duration="9257000" />
-      <workItem from="1544449107794" duration="1369000" />
+      <workItem from="1544449107794" duration="3269000" />
+      <workItem from="1544535156431" duration="9885000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67175000" />
+    <option name="totallyTimeSpent" value="78960000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-2" width="1440" height="902" extended-state="6" />
@@ -634,15 +634,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/letterInfo/lettersDescription.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+        <state relative-caret-position="286">
+          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/letterInfo/LetterInfo.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+        <state relative-caret-position="462">
+          <caret line="48" column="20" lean-forward="true" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
           <folding>
             <element signature="e#71#118#0" expanded="true" />
           </folding>
