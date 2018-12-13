@@ -1,5 +1,80 @@
-.startButton {
-  background-color: red;
-  height: 50px;
-  width: 100px;
+$background-color: #efc30f;
+$button-color: #26d24f;
+//
+//body {
+//  background: #00c3ff; /* fallback for old browsers */
+//  background: -webkit-linear-gradient(to right, #00c3ff, #ffff1c);
+//  background: linear-gradient(to right, #00c3ff, #ffff1c);
+//}
+
+body {
+  background-image: url("../../assets/moscow.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 90%;
+  &:before {
+    background-color: #00c3ff;
+  }
+
 }
+
+.startButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+  font-size: 45px;
+  background-image: url("../../assets/flag_empty.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  width: 200px;
+  text-decoration: none;
+  margin: 120px auto;
+  cursor: pointer;
+  border-radius: 50%;
+
+  &:hover {
+    background-image: url("../../assets/flag_full.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    //background-color: grey;
+  }
+}
+
+.mainContainer {
+  padding-top: 5em;
+  text-align: center;
+  h1 {
+    font-family: bellotaregular, sans-serif;
+    font-size: 3em;
+  }
+  p {
+    font-family: bellotaregular, sans-serif;
+    font-size: 2em;
+    margin-left: 10em;
+    margin-right: 10em;
+  }
+  &:after {
+    content: "";
+    background-image: url("../../assets/paper.png");
+    //background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.9;
+    top: 1em;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    margin-left: 10em;
+    margin-right: 10em;
+    //margin-top: 1em;
+    height: 90%;
+  }
+}
+

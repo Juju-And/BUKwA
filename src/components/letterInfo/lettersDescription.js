@@ -1,6 +1,6 @@
 module.exports = [
     {
-        letterName: 'a',
+        letterName: 'а',
         description: "айст",
         pronunciation: "ˈajst",
         translation: "bocian",

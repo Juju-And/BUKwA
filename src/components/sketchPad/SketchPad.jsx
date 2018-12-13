@@ -23,25 +23,26 @@ const canvasToPixels = canvas => {
     return pixels;
 };
 
-const Legend = ({ score, updateScore, letter }) => {
+const Legend = ({score, updateScore, letter}) => {
     return <div className={styles.wrapperDescriptionSketch}>
-        <p>Do dyspozycji masz mazak. Wypełnij literę wewnątrz konturów, a następnie sprawdź swój rezultat
-            klikając
-            w przycisk.</p>
-        <ButtonSketch onClick={ updateScore }/>
-        <div>Wynik { score }</div>
+        <p>Do dyspozycji masz mazak. Wypełnij literę wewnątrz konturów, następnie sprawdź swój rezultat.
+            Jeżeli osiągniesz dobry wynik, pojawi się nowy przycisk i przejdziesz do strony o literze.
+        </p>
+        <ButtonSketch onClick={updateScore}/>
+        <div className={styles.result}>Twój wynik to: {score}%</div>
         {
-            score > 60 && <Link className={styles.buttonToLetterInfo} to={"/letterInfo/" + letter }>Pokaż info o literze.</Link>
+            score > 60 &&
+            <Link className={styles.buttonToLetterInfo} to={"/letterInfo/" + letter}>POKAŻ INFO</Link>
         }
     </div>
 }
 
-const ButtonSketch = ({ onClick }) => {
+const ButtonSketch = ({onClick}) => {
     return <button
-            onClick={ onClick }
-            className={styles.wrapperDescriptionSketch}>
-            Pokaż mój rezultat
-        </button>
+        onClick={onClick}
+        className={styles.wrapperDescriptionSketch}>
+        POKAŻ REZULTAT
+    </button>
 }
 
 export default class SketchPad extends React.Component {
@@ -92,7 +93,7 @@ export default class SketchPad extends React.Component {
             }
 
             return {
-                percentage: sum / numberOfPixels * 100
+                percentage: Math.round(sum / numberOfPixels * 100)
             }
 
         });
@@ -101,13 +102,13 @@ export default class SketchPad extends React.Component {
     drawLetterFillOnCanvas(canvas, letter) {
         var ctx = canvas.getContext("2d");
         ctx.font = "500px bad_scriptregular";
-        ctx.fillText(letter, canvas.width / 4, canvas.height / 2);
+        ctx.fillText(letter, canvas.width / 4, canvas.height / 1.1);
     }
 
     drawLetterOutlineOnCanvas(canvas, letter) {
         var ctx = canvas.getContext("2d");
         ctx.font = "500px bad_scriptregular";
-        ctx.strokeText(letter, canvas.width / 4, canvas.height / 2);
+        ctx.strokeText(letter, canvas.width / 4, canvas.height / 1.1);
     }
 
     getOKPixels() {
@@ -144,15 +145,15 @@ export default class SketchPad extends React.Component {
     render() {
         return <div className={styles.sketchContainer}>
             <Legend
-                score={ this.state.percentage }
-                updateScore={ this.updateScore }
-                letter={ this.getLetter() }
+                score={this.state.percentage}
+                updateScore={this.updateScore}
+                letter={this.getLetter()}
             />
             <div className={styles.wrapperSketchPad}>
                 <SketchPadVendor
                     ref={this.onCanvasCreated}
                     height={600} width={600} items={[]}
-                    size={15}
+                    size={18}
                 />
             </div>
         </div>
