@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./LetterInfo.scss";
-import giraffe from "../../assets/giraffe.jpg";
 import {Link} from "react-router-dom"
-import getRandomLetter from "../getRandomLetter";
+import {getRandomNewLetter} from "../session";
 import letters from './lettersDescription.js';
 
 console.log(letters);
@@ -20,40 +19,43 @@ class Letter extends React.Component {
             }
         )
         let pronunciation = letters.map((Object) => {
-                // sprawdź, czy litera jest taka sama jak wylosowana
                 if (Object.letterName === this.props.letter) {
-                    //jeżeli jest, wyciągnij z obiektu jej opis
                     return <div>{Object.pronunciation}</div>
                 }
             }
         )
         let translation = letters.map((Object) => {
-                // sprawdź, czy litera jest taka sama jak wylosowana
                 if (Object.letterName === this.props.letter) {
-                    //jeżeli jest, wyciągnij z obiektu jej opis
                     return <div>{Object.translation}</div>
                 }
             }
         )
         let picture = letters.map((Object) => {
-                // sprawdź, czy litera jest taka sama jak wylosowana
                 if (Object.letterName === this.props.letter) {
-                    //jeżeli jest, wyciągnij z obiektu jej opis
-                    return <div><img src={giraffe} className={styles.picture}/></div>
+                    return <div className={styles.pictureContainer}><img src={Object.picture} className={styles.picture}/>
+                    </div>
                 }
             }
         )
         // console.log(listOfData);
-        return <div>
-            <p>Litera {this.props.letter}</p>
-            <div>{picture}</div>
-            <div>Słowo: {description}</div>
-            <div>Tłumaczenie: {translation}</div>
-            <div>Wymowa: {pronunciation}</div>
-
-
+        return <div className={styles.letterDataContainer}>
+            <div className={styles.letterData}>
+                <p className={styles.letterName}>Litera {this.props.letter}</p>
+                <span>Słowo:</span> {description}
+                <span>Wymowa:</span> {pronunciation}
+                <span>Tłumaczenie:</span> {translation}
+            </div>
+            {picture}
         </div>
     }
+}
+
+const BottomNavLetInf = () => {
+    return <div className={styles.buttonsWrapper}>
+        <Link to={"/summary"} className={styles.summaryButton}>PODSUMOWANIE</Link>
+        <Link to={"/sketchPad/" + getRandomNewLetter()} className={styles.continueButton}>KONTYNUUJ
+            RYSOWANIE</Link>
+    </div>
 }
 
 
@@ -62,12 +64,7 @@ export default class LetterInfo extends React.Component {
         return (<div className={styles.wrapperLetterInfo}>
             <h1>Dowiedz się więcej o literze, którą właśnie napisałeś!</h1>
             <Letter letter={this.props.match.params.letter}/>
-            {/*<h2>Nie chcę już dalej rysować, podsumuj moją sesję.</h2>*/}
-            <div className={styles.buttonsWrapper}>
-                <Link to={"/summary"} className={styles.summaryButton}>PODSUMOWANIE</Link>
-                <Link to={"/sketchPad/" + getRandomLetter()} className={styles.continueButton}>KONTYNUUJ
-                    RYSOWANIE</Link>
-            </div>
+            <BottomNavLetInf/>
         </div>)
     }
 }

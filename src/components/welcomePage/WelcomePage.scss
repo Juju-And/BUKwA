@@ -8,7 +8,7 @@ $button-color: #26d24f;
 //}
 
 body {
-  background-image: url("../../assets/moscow.JPG");
+  background-image: url("../../assets/moscow.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -23,7 +23,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: grey;
+  color: darkgray;
+  font-family: bellotaregular;
+  font-weight: bold;
   font-size: 45px;
   background-image: url("../../assets/flag_empty.png");
   background-position: center;
@@ -46,7 +48,7 @@ body {
 }
 
 .mainContainer {
-  padding-top: 5em;
+  padding-top: 4em;
   text-align: center;
   h1 {
     font-family: bellotaregular, sans-serif;
@@ -65,7 +67,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.9;
-    top: 1em;
+    top: 2em;
     left: 0;
     bottom: 0;
     right: 0;

@@ -1,37 +1,64 @@
-module.exports = [
+const descriptions = [
     {
         letterName: 'а',
         description: "айст",
         pronunciation: "ˈajst",
         translation: "bocian",
-        img: "../../assets/zuk.jpg"
+        picture: require("../../assets/aist.png"),
+        yOffset: -90
     },
     {
         letterName: "б",
-        description: "бара́н",
-        pronunciation: "bɐrˈan // barаn",
-        translation: "baran",
-        picture: "../../assets/baran.jpg"
+        description: "бегемо́т",
+        pronunciation: "[bʲɪɡʲɪmˈot] // barаn",
+        translation: "hipopotam",
+        picture: require("../../assets/begemot.png"),
+        yOffset: -90
     },
     {
         letterName: "в",
         description: "волк",
-        pronunciation: "vˈolk // wołk",
+        pronunciation: "[vˈolk] // wołk",
         translation: "wilk",
-        img: "../../assets/wolk.jpg"
+        picture: require("../../assets/wolk.png"),
+        yOffset: -90
     },
     {
         letterName: "г",
-        description: "глаз",
-        pronunciation: "ɡlˈas // glaz",
-        translation: "oko",
-        img: "../../assets/glaz.png"
+        description: "гриб",
+        pronunciation: "[ɡrʲˈip] // grib",
+        translation: "grzyb",
+        picture: require("../../assets/grib.png"),
+        yOffset: -90
     },
     {
         letterName: "д",
-        description: "дива́н",
-        pronunciation: "dʲɪvˈan // diwan",
-        translation: "kanapa",
-        picture: "../../assets/diwan.jpg"
-    }
+        description: "диноза́вр",
+        pronunciation: "[dʲɪnɐzˈavr] // dinozawr",
+        translation: "dinozaur",
+        picture: require("../../assets/dino.png"),
+        yOffset: -145
+    },
+    // {
+    //     letterName: "е",
+    //     description: "xxx",
+    //     pronunciation: "xxx",
+    //     translation: "xxx",
+    //     picture: require("../../assets/xxx"),
+    //     yOffset: -90
+    // },
+
+
 ];
+
+// е, ё, ж, з, и, й, к, л, м, н, о, п, р, с, т, у, ф, х, ц, ч, ш, щ, ъ, ы, ь, э, ю, я
+
+export default descriptions;
+
+export const getDescription = (letter) => {
+    return descriptions.find((description) => {
+            console.log({letter, description}, description.letterName === letter)
+            return description.letterName === letter;
+        }
+    )
+}

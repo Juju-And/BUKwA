@@ -2,8 +2,10 @@ import React from "react";
 import "./font/stylesheet.css";
 import styles from "./SketchPad.scss";
 import {Link} from "react-router-dom";
-
+import {getDescription} from '../letterInfo/lettersDescription.js';
+import {setNextRandomLetter, getRandomNewLetter} from '../session.js';
 import SketchPadVendor from "../../../node_modules/react-sketchpad/lib/SketchPad.js";
+
 
 const canvasToPixels = canvas => {
     const pixels = [];
@@ -45,6 +47,13 @@ const ButtonSketch = ({onClick}) => {
     </button>
 }
 
+const BottomNav = ({ nextLetter }) => {
+    return <div className={styles.wrapperExtraButtons}>
+        <Link to={"/summary"} className={styles.skipAllButton}>PODSUMOWANIE</Link>
+        { nextLetter && <Link to={`/sketchPad/${nextLetter}`} className={styles.skipButton}>POMIŃ LITERĘ</Link>}
+    </div>
+}
+
 export default class SketchPad extends React.Component {
     constructor(...args) {
         super(...args);
@@ -52,12 +61,31 @@ export default class SketchPad extends React.Component {
             percentage: 0,
             pixels: [[]],
             borderPixels: [[]],
-            okPixels: [[]]
+            okPixels: [[]],
+            nextLetter: null
         };
     }
 
     componentDidMount() {
         this.updateScore();
+        setNextRandomLetter();
+        this.setState({
+            nextLetter: getRandomNewLetter()
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.letter !== this.props.match.params.letter) {
+            const nextLetter = getRandomNewLetter();
+            console.log("!!!", { nextLetter });
+
+            setNextRandomLetter();
+            this.setState({
+                nextLetter: getRandomNewLetter()
+            });
+            return this.drawLetter()
+        }
+        console.log("!!!", this.state);
     }
 
     updateScore = () => {
@@ -100,15 +128,21 @@ export default class SketchPad extends React.Component {
     }
 
     drawLetterFillOnCanvas(canvas, letter) {
+        const yOffset = getDescription(letter)?getDescription(letter).yOffset||0:0;
         var ctx = canvas.getContext("2d");
         ctx.font = "500px bad_scriptregular";
-        ctx.fillText(letter, canvas.width / 4, canvas.height / 1.1);
+        ctx.fillText(letter, canvas.width / 3, (canvas.height / 1.1) + yOffset);
     }
 
     drawLetterOutlineOnCanvas(canvas, letter) {
+
+        console.log({ letter }, getDescription(letter));
+
+        const yOffset = getDescription(letter)?getDescription(letter).yOffset||0:0;
         var ctx = canvas.getContext("2d");
         ctx.font = "500px bad_scriptregular";
-        ctx.strokeText(letter, canvas.width / 4, canvas.height / 1.1);
+        ctx.strokeText(letter, canvas.width / 3, (canvas.height / 1.1) + yOffset);
+        console.log(yOffset);
     }
 
     getOKPixels() {
@@ -127,8 +161,15 @@ export default class SketchPad extends React.Component {
             return;
         }
         this.canvas = canvas;
+        this.drawLetter();
+    };
 
-        this.drawLetterOutlineOnCanvas(canvas.canvas, this.getLetter());
+    drawLetter = () =>{
+        if (!this.canvas) {
+            return;
+        }
+        this.canvas.canvas.getContext("2d").clearRect(0,0,this.canvas.canvas.width, this.canvas.canvas.height);
+        this.drawLetterOutlineOnCanvas(this.canvas.canvas, this.getLetter());
 
         this.setState({
             borderPixels: canvasToPixels(this.canvas.canvas),
@@ -137,25 +178,28 @@ export default class SketchPad extends React.Component {
     };
 
     getLetter() {
-
-
         return this.props.match.params.letter;
     }
 
+
+
     render() {
-        return <div className={styles.sketchContainer}>
-            <Legend
-                score={this.state.percentage}
-                updateScore={this.updateScore}
-                letter={this.getLetter()}
-            />
-            <div className={styles.wrapperSketchPad}>
-                <SketchPadVendor
-                    ref={this.onCanvasCreated}
-                    height={600} width={600} items={[]}
-                    size={18}
+        return <div>
+            <div className={styles.sketchContainer}>
+                <Legend
+                    score={this.state.percentage}
+                    updateScore={this.updateScore}
+                    letter={this.getLetter()}
                 />
+                <div className={styles.wrapperSketchPad}>
+                    <SketchPadVendor
+                        ref={this.onCanvasCreated}
+                        height={700} width={650} items={[]}
+                        size={18}
+                    />
+                </div>
             </div>
+            <BottomNav nextLetter={ this.state.nextLetter }/>
         </div>
     }
 }
