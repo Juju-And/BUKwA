@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./WelcomePage.scss";
 import {Link} from "react-router-dom";
 import {setNextRandomLetter, reset as resetSession, getRandomNewLetter} from "../session.js";
-
+import "./font/stylesheet.css";
 
 export default class WelcomePage extends React.Component {
 

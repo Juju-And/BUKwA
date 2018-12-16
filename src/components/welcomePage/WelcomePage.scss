@@ -1,18 +1,16 @@
-$background-color: #efc30f;
-$button-color: #26d24f;
-//
-//body {
-//  background: #00c3ff; /* fallback for old browsers */
-//  background: -webkit-linear-gradient(to right, #00c3ff, #ffff1c);
-//  background: linear-gradient(to right, #00c3ff, #ffff1c);
+//*{
+//  border: 1px solid red;
 //}
 
+
+//@media (min-width: 768px) {
 body {
   background-image: url("../../assets/moscow.jpg");
-  background-position: center;
+  //background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 90%;
+  background-attachment: fixed;
+  height: 100%;
   &:before {
     background-color: #00c3ff;
   }
@@ -24,7 +22,7 @@ body {
   align-items: center;
   justify-content: center;
   color: darkgray;
-  font-family: bellotaregular;
+  font-family: robotoregular;
   font-weight: bold;
   font-size: 45px;
   background-image: url("../../assets/flag_empty.png");
@@ -77,6 +75,36 @@ body {
     margin-right: 10em;
     //margin-top: 1em;
     height: 90%;
+
+    @media (max-width: 767px) {
+      margin-left: 1em;
+      margin-right: 1em;
+    }
   }
 }
 
+//}
+@media (max-width: 767px) {
+  padding-top: 10em;
+  h1 {
+    font-size: 2em;
+  }
+  p {
+    //font-size: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+  &:after {
+    content: "";
+    //background-image: url("../../assets/paper.png");
+    //background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+    margin-left: 1em;
+    margin-right: 1em;
+    //margin-top: 1em;
+    height: 90%;
+  }
+}

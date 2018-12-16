@@ -3,7 +3,7 @@ import "./font/stylesheet.css";
 import styles from "./SketchPad.scss";
 import {Link} from "react-router-dom";
 import {getDescription} from '../letterInfo/lettersDescription.js';
-import {setNextRandomLetter, getRandomNewLetter} from '../session.js';
+import {setNextRandomLetter, getRandomNewLetter, save} from '../session.js';
 import SketchPadVendor from "../../../node_modules/react-sketchpad/lib/SketchPad.js";
 
 
@@ -47,10 +47,10 @@ const ButtonSketch = ({onClick}) => {
     </button>
 }
 
-const BottomNav = ({ nextLetter }) => {
+const BottomNav = ({nextLetter}) => {
     return <div className={styles.wrapperExtraButtons}>
         <Link to={"/summary"} className={styles.skipAllButton}>PODSUMOWANIE</Link>
-        { nextLetter && <Link to={`/sketchPad/${nextLetter}`} className={styles.skipButton}>POMIŃ LITERĘ</Link>}
+        {nextLetter && <Link to={`/sketchPad/${nextLetter}`} className={styles.skipButton}>POMIŃ LITERĘ</Link>}
     </div>
 }
 
@@ -77,22 +77,25 @@ export default class SketchPad extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.letter !== this.props.match.params.letter) {
             const nextLetter = getRandomNewLetter();
-            console.log("!!!", { nextLetter });
+            console.log("!!!", {nextLetter});
 
             setNextRandomLetter();
             this.setState({
-                nextLetter: getRandomNewLetter()
+                nextLetter: getRandomNewLetter(),
+                percentage: 0
             });
             return this.drawLetter()
         }
-        console.log("!!!", this.state);
+        if (this.canvas) {
+            save(this.props.match.params.letter, this.state.percentage, this.canvas.canvas.toDataURL());
+        }
     }
 
     updateScore = () => {
         this.setState({
             pixels: canvasToPixels(this.canvas.canvas)
         }, () => this.updatePercentage());
-    }
+    };
 
     updatePercentage() {
         this.setState(prevState => {
@@ -128,7 +131,7 @@ export default class SketchPad extends React.Component {
     }
 
     drawLetterFillOnCanvas(canvas, letter) {
-        const yOffset = getDescription(letter)?getDescription(letter).yOffset||0:0;
+        const yOffset = getDescription(letter) ? getDescription(letter).yOffset || 0 : 0;
         var ctx = canvas.getContext("2d");
         ctx.font = "500px bad_scriptregular";
         ctx.fillText(letter, canvas.width / 3, (canvas.height / 1.1) + yOffset);
@@ -136,9 +139,9 @@ export default class SketchPad extends React.Component {
 
     drawLetterOutlineOnCanvas(canvas, letter) {
 
-        console.log({ letter }, getDescription(letter));
+        console.log({letter}, getDescription(letter));
 
-        const yOffset = getDescription(letter)?getDescription(letter).yOffset||0:0;
+        const yOffset = getDescription(letter) ? getDescription(letter).yOffset || 0 : 0;
         var ctx = canvas.getContext("2d");
         ctx.font = "500px bad_scriptregular";
         ctx.strokeText(letter, canvas.width / 3, (canvas.height / 1.1) + yOffset);
@@ -164,11 +167,11 @@ export default class SketchPad extends React.Component {
         this.drawLetter();
     };
 
-    drawLetter = () =>{
+    drawLetter = () => {
         if (!this.canvas) {
             return;
         }
-        this.canvas.canvas.getContext("2d").clearRect(0,0,this.canvas.canvas.width, this.canvas.canvas.height);
+        this.canvas.canvas.getContext("2d").clearRect(0, 0, this.canvas.canvas.width, this.canvas.canvas.height);
         this.drawLetterOutlineOnCanvas(this.canvas.canvas, this.getLetter());
 
         this.setState({
@@ -180,7 +183,6 @@ export default class SketchPad extends React.Component {
     getLetter() {
         return this.props.match.params.letter;
     }
-
 
 
     render() {
@@ -196,10 +198,11 @@ export default class SketchPad extends React.Component {
                         ref={this.onCanvasCreated}
                         height={700} width={650} items={[]}
                         size={18}
+
                     />
                 </div>
             </div>
-            <BottomNav nextLetter={ this.state.nextLetter }/>
+            <BottomNav nextLetter={this.state.nextLetter}/>
         </div>
     }
 }

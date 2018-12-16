@@ -1,9 +1,7 @@
 //* {
 //  border: 1px solid red;
 //}
-
-@import "../buttons.scss";
-
+@import "../buttons/button";
 
 .wrapperLetterInfo {
   display: flex;
@@ -15,6 +13,8 @@
   padding-top: 2em;
   padding-left: 1em;
   font-family: bellotaregular;
+  position: relative;
+  min-height: 95vh;
 
   &:after {
     content: "";
@@ -25,12 +25,10 @@
     opacity: 0.9;
     top: 2em;
     left: 0;
-    bottom: 0;
+    bottom: 1em;
     right: 0;
     position: absolute;
     z-index: -1;
-    margin-left: 10em;
-    margin-right: 10em;
     height: 90%;
   }
 
@@ -46,6 +44,8 @@
     display: flex;
     justify-content: baseline;
     align-items: center;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
   }
 
   .letterDataContainer {
@@ -60,10 +60,14 @@
     }
     p {
       font-size: 2em;
-      //color: ;
+      span {
+        text-transform: uppercase;
+        font-family: bad_scriptregular;
+        color: red;
+      }
     }
   }
-  .letterData{
+  .letterData {
     padding-left: 1em;
     padding-top: 2em;
     width: 30%;
@@ -76,3 +80,12 @@
     height: 15em;
   }
 }
+
+//@media (min-width: 1441px) {
+//
+//  .wrapperLetterInfo {
+//    &:after {
+//      height: 90%;
+//    }
+//  }
+//}

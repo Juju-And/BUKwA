@@ -10,6 +10,16 @@ console.log(letters);
 class Letter extends React.Component {
 
     render() {
+        let latLetterName = letters.map((Object) => {
+                // sprawdź, czy litera jest taka sama jak wylosowana
+                if (Object.letterName === this.props.letter) {
+                    //jeżeli jest, wyciągnij z obiektu jej opis
+                    return <div>{Object.latLetterName}</div>
+                }
+            }
+        );
+
+
         let description = letters.map((Object) => {
                 // sprawdź, czy litera jest taka sama jak wylosowana
                 if (Object.letterName === this.props.letter) {
@@ -17,30 +27,31 @@ class Letter extends React.Component {
                     return <div>{Object.description}</div>
                 }
             }
-        )
+        );
         let pronunciation = letters.map((Object) => {
                 if (Object.letterName === this.props.letter) {
                     return <div>{Object.pronunciation}</div>
                 }
             }
-        )
+        );
         let translation = letters.map((Object) => {
                 if (Object.letterName === this.props.letter) {
                     return <div>{Object.translation}</div>
                 }
             }
-        )
+        );
         let picture = letters.map((Object) => {
                 if (Object.letterName === this.props.letter) {
                     return <div className={styles.pictureContainer}><img src={Object.picture} className={styles.picture}/>
                     </div>
                 }
             }
-        )
+        );
         // console.log(listOfData);
         return <div className={styles.letterDataContainer}>
             <div className={styles.letterData}>
-                <p className={styles.letterName}>Litera {this.props.letter}</p>
+                <p className={styles.letterName}>Litera <span>{this.props.letter}</span></p>
+                <span>Fonetyczny odpowiednik:</span> {latLetterName}
                 <span>Słowo:</span> {description}
                 <span>Wymowa:</span> {pronunciation}
                 <span>Tłumaczenie:</span> {translation}
