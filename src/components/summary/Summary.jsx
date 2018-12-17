@@ -5,7 +5,7 @@ import {getResults} from '../session.js';
 
 const Result = ({result}) => {
     return <div >
-        <div className={styles.accuracy}>Zgodność ze wzorem: {result.percentage} %</div>
+        <div className={styles.accuracy}>Zgodność ze wzorem: <span>{result.percentage}%</span></div>
         <img className={styles.resultImage} src={result.imgData}/>
     </div>;
 };
