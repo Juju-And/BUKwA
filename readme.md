@@ -1,1 +1,1 @@
-demo https://juju-and.github.io/projekt-aplikacja/
+demo https://juju-and.github.io/BUKwA/
